@@ -11,7 +11,10 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -29,9 +32,9 @@ import me.doapps.youapp.YouApp;
 /**
  * Created by Gantz on 3/12/14.
  */
-public class Fragment_Video extends Fragment implements Video_DataSource.Interface_Video, AbsListView.OnScrollListener{
+public class Fragment_Video extends Fragment implements Video_DataSource.Interface_Video, AbsListView.OnScrollListener, YouApp.OnSelectPlayList {
 
-    private ListView lista_video;
+    public ListView lista_video;
     private Video_DataSource video_dataSource;
     private Adapter_Video adapter_video;
     protected boolean isLoading = false;
@@ -39,33 +42,39 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
     private int MINIMO = 1;
     private int MAXIMO = 10;
 
-    public static final Fragment_Video newInstance(){
+    public static final Fragment_Video newInstance() {
         return new Fragment_Video();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        video_dataSource = new Video_DataSource(getActivity());
-        video_dataSource.getVideos(((YouApp)getActivity()).getChannel_dto().getId(),MINIMO,MAXIMO);
-        video_dataSource.setInterface_video(this);
+        ((YouApp) getActivity()).setOnSelectPlayList(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_video,container,false);
+        return inflater.inflate(R.layout.fragment_video, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+        easyTracker.send(MapBuilder
+                .createEvent("PLAYLIST",
+                        "CREANDO",
+                        "SE CREO EL PLAYLIST",
+                        null)
+                .build());
+
         TextView empty = new TextView(getActivity());
         empty.setText("Sin Internet :c");
 
-        lista_video = (ListView)getView().findViewById(R.id.lista_video);
+        lista_video = (ListView) getView().findViewById(R.id.lista_video);
         lista_video.setOnScrollListener(this);
-        lista_video.setEmptyView(empty);
+        lista_video.setEmptyView(getView().findViewById(android.R.id.empty));
         lista_video.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +82,14 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
                 Intent intent = new Intent(getActivity(), Player.class);
                 intent.putExtra("idVideo", item_dto.getId());
                 startActivity(intent);
+
+                EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+                easyTracker.send(MapBuilder
+                        .createEvent("VIDEO",
+                                "REPRODUCIENDO",
+                                "SE REPRODUCIO " + item_dto.getTitle(),
+                                null)
+                        .build());
             }
         });
     }
@@ -108,22 +125,46 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
             if (!isLoading) {
                 isLoading = true;
                 MINIMO = MINIMO + 10;
-                video_dataSource.getVideos(((YouApp)getActivity()).getChannel_dto().getId(),MINIMO,MAXIMO);
+                video_dataSource.getVideos(((YouApp) getActivity()).getPlayList_dto().getId(), MINIMO, MAXIMO);
                 video_dataSource.setInterface_video(this);
             }
         }
     }
 
     @Override
-    public void onFinishLoad(Adapter_Video adapter_video,ArrayList<Item_DTO> videos) {
-        if(MINIMO == 1){
+    public void onFinishLoad(Adapter_Video adapter_video, ArrayList<Item_DTO> videos) {
+        if (MINIMO == 1) {
             this.adapter_video = adapter_video;
             lista_video.setAdapter(this.adapter_video);
-        }else{
+        } else {
             for (int i = 0; i < videos.size(); i++) {
                 this.adapter_video.add(videos.get(i));
                 isLoading = false;
             }
         }
+    }
+
+    public void updateView() {
+        EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+        easyTracker.send(MapBuilder
+                .createEvent("PLAYLIST",
+                        "ACTUALIZANDO",
+                        "SE ACTUALIZO EL PLAYLIST",
+                        null)
+                .build());
+
+        MINIMO = 1;
+        MAXIMO = 10;
+
+        lista_video.setAdapter(null);
+
+        video_dataSource = new Video_DataSource(getActivity());
+        video_dataSource.getVideos(((YouApp) getActivity()).getPlayList_dto().getId(), MINIMO, MAXIMO);
+        video_dataSource.setInterface_video(this);
+    }
+
+    @Override
+    public void onClick() {
+        updateView();
     }
 }

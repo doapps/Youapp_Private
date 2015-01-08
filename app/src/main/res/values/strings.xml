@@ -14,4 +14,10 @@
     <!-- Admob Keys -->
     <string name="admob_banner">ca-app-pub-8995045147204986/5276404156</string>
     <string name="admob_interstitial">ca-app-pub-8995045147204986/6753137354</string>
+
+    <!-- Google Analitycs -->
+    <string name="ga_trackingId">UA-58352471-5</string>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
 </resources>

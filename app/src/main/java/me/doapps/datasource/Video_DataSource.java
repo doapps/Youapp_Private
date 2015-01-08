@@ -37,15 +37,14 @@ public class Video_DataSource {
     }
 
     public void getVideos(String idCanal,int minimo, int maximo) {
-        String urlVacio = "https://gdata.youtube.com/feeds/api/videos";
-        String canal = "?author=" + idCanal;
-        String versionApi = "&v=2.1";
-        String ordeandoPor = "&orderby=updated";
+        String urlVacio = "http://gdata.youtube.com/feeds/api/playlists/"+idCanal;
+        String versionApi = "?v=2.1";
         String formato = "&alt=jsonc";
         String desde = "&start-index=" + String.valueOf(minimo);
         String cantidadResultados = "&max-results=" + String.valueOf(maximo);
 
-        String URL = urlVacio + canal + versionApi + ordeandoPor + formato + desde + cantidadResultados;
+        String URL = urlVacio + versionApi + formato + desde + cantidadResultados;
+        Log.e("URL",URL);
 
         if (isOnline()) {
             RequestQueue queue = Volley.newRequestQueue(context);
@@ -68,10 +67,8 @@ public class Video_DataSource {
                 api_dto.setDataSource(mObject);
 
                 interface_video.onFinishLoad(new Adapter_Video(context,api_dto.getData_dto().getItem_dtos()),api_dto.getData_dto().getItem_dtos());
-
-
             } catch (JSONException e) {
-                Toast.makeText(context, "Ocurrio un error, intentelo nuevamente...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Este Playlist no tiene videos", Toast.LENGTH_SHORT).show();
             }
         }
     };

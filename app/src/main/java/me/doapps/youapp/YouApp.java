@@ -23,6 +23,7 @@ import com.viewpagerindicator.TabPageIndicator;
 
 import me.doapps.beans.API_DTO;
 import me.doapps.beans.Channel_DTO;
+import me.doapps.beans.PlayList_DTO;
 import me.doapps.datasource.Channel_Datasource;
 import me.doapps.datasource.Video_DataSource;
 import me.doapps.fragments.Fragment_Menu;
@@ -41,7 +42,15 @@ public class YouApp extends ActionBarActivity {
     public ViewPager pager;
 
     private API_DTO api_dto;
-    private Channel_DTO channel_dto;
+    private PlayList_DTO playList_dto;
+
+    public void setPlayList_dto(PlayList_DTO playList_dto) {
+        this.playList_dto = playList_dto;
+    }
+
+    public PlayList_DTO getPlayList_dto() {
+        return playList_dto;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,7 @@ public class YouApp extends ActionBarActivity {
         /**
          *
          */
-        setChannel_dto(((Channel_DTO) new Channel_Datasource().getAdapterChannel(this).getItem(0)));
+        //setChannel_dto(((Channel_DTO) new Channel_Datasource().getAdapterChannel(this).getItem(0)));
         //getSupportFragmentManager().beginTransaction().replace(R.id.container, Fragment_Video.newInstance(), Fragment_Video.class.getName()).commit();
 
         /**
@@ -113,14 +122,6 @@ public class YouApp extends ActionBarActivity {
         actionBar.setTitle(mTitle);
     }
 
-    public void setChannel_dto(Channel_DTO channel_dto) {
-        this.channel_dto = channel_dto;
-    }
-
-    public Channel_DTO getChannel_dto() {
-        return channel_dto;
-    }
-
     public API_DTO getApi_dto() {
         return api_dto;
     }
@@ -164,4 +165,19 @@ public class YouApp extends ActionBarActivity {
     public void setmDrawerLayout(DrawerLayout mDrawerLayout) {
         this.mDrawerLayout = mDrawerLayout;
     }
+
+    public interface OnSelectPlayList {
+        void onClick();
+    }
+
+    private OnSelectPlayList onSelectPlayList;
+
+    public OnSelectPlayList getOnSelectPlayList() {
+        return onSelectPlayList;
+    }
+
+    public void setOnSelectPlayList(OnSelectPlayList onSelectPlayList) {
+        this.onSelectPlayList = onSelectPlayList;
+    }
+
 }

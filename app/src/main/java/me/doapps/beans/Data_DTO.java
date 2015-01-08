@@ -37,9 +37,20 @@ public class Data_DTO extends API_DTO {
         JSONArray items_array = getDataSource().getJSONArray("items");
         for (int i = 0; i < items_array.length(); i++) {
             Item_DTO item_dto = new Item_DTO();
-            item_dto.setDataSource(items_array.getJSONObject(i));
+            item_dto.setDataSource(items_array.getJSONObject(i).getJSONObject("video"));
             item_dtos.add(item_dto);
         }
         return item_dtos;
+    }
+
+    public ArrayList<PlayList_DTO>  getPlayList_dtos() throws JSONException {
+        ArrayList<PlayList_DTO> playList_dtos = new ArrayList<PlayList_DTO>();
+        JSONArray items_array = getDataSource().getJSONArray("items");
+        for (int i = 0; i < items_array.length(); i++) {
+            PlayList_DTO item_dto = new PlayList_DTO();
+            item_dto.setDataSource(items_array.getJSONObject(i));
+            playList_dtos.add(item_dto);
+        }
+        return playList_dtos;
     }
 }

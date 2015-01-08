@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import me.doapps.utils.Util_Web;
 import me.doapps.youapp.R;
 
@@ -36,6 +39,14 @@ public class Fragment_Web extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+        easyTracker.send(MapBuilder
+                .createEvent("WEB",
+                        "CREANDO",
+                        "SE CREO LA WEBVIEW",
+                        null)
+                .build());
 
         webView = (WebView) getView().findViewById(R.id.web);
         WebSettings webSettings = webView.getSettings();

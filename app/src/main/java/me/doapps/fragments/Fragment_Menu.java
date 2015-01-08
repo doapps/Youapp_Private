@@ -1,5 +1,6 @@
 package me.doapps.fragments;
 
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -22,12 +23,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
+import java.util.ArrayList;
+
+import me.doapps.adapters.Adapter_Playlist;
+import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.Channel_DTO;
+import me.doapps.beans.PlayList_DTO;
 import me.doapps.datasource.Channel_Datasource;
+import me.doapps.datasource.Video_DataSource;
 import me.doapps.youapp.R;
 import me.doapps.youapp.YouApp;
 
-public class Fragment_Menu extends Fragment {
+public class Fragment_Menu extends Fragment implements Channel_Datasource.Interface_Playlists {
 
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
@@ -41,12 +51,18 @@ public class Fragment_Menu extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    private Adapter_Playlist adapter_playlist;
+    private Channel_Datasource channel_datasource;
+
     public Fragment_Menu() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        channel_datasource = new Channel_Datasource(getActivity());
+        channel_datasource.getPlayList("WorldofWarcraftES");
+        channel_datasource.setInterface_playlists(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
@@ -64,21 +80,35 @@ public class Fragment_Menu extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+        easyTracker.send(MapBuilder
+                .createEvent("MENU",
+                        "CREANDO",
+                        "SE CREO EL MENU",
+                        null)
+                .build());
+
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_menu, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Channel_DTO channel_dto = (Channel_DTO) parent.getAdapter().getItem(position);
-                ((YouApp)getActivity()).setChannel_dto(channel_dto);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,Fragment_Video.newInstance(),Fragment_Video.class.getName()).commit();
+                PlayList_DTO channel_dto = (PlayList_DTO) parent.getAdapter().getItem(position);
+                ((YouApp) getActivity()).setPlayList_dto(channel_dto);
+                ((YouApp) getActivity()).getOnSelectPlayList().onClick();
                 mDrawerLayout.closeDrawers();
+
+                EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
+                easyTracker.send(MapBuilder
+                        .createEvent("MENU",
+                                "SELECCION",
+                                "PLAYLIST SELECCIONADA : "+channel_dto.getTitle(),
+                                null)
+                        .build());
             }
         });
-
-        Channel_Datasource channel_datasource = new Channel_Datasource();
-        mDrawerListView.setAdapter(channel_datasource.getAdapterChannel(getActivity()));
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -165,7 +195,7 @@ public class Fragment_Menu extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(((YouApp)getActivity()).pager.getCurrentItem() == 1){
+        if (((YouApp) getActivity()).pager.getCurrentItem() == 1) {
             if (mDrawerToggle.onOptionsItemSelected(item)) {
                 return true;
             }
@@ -188,8 +218,12 @@ public class Fragment_Menu extends Fragment {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 
-
     public static interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(Channel_DTO channel_dto);
+    }
+
+    @Override
+    public void onFinishLoad(Adapter_Playlist adapter_playlist, ArrayList<PlayList_DTO> playList_dtos) {
+        mDrawerListView.setAdapter(adapter_playlist);
     }
 }

@@ -15,8 +15,8 @@
         android:layout_gravity="left|top">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/image"
             android:src="@android:drawable/ic_menu_directions" />
 

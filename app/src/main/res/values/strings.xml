@@ -14,4 +14,8 @@
     <!-- Admob Keys -->
     <string name="admob_banner">ca-app-pub-8995045147204986/5276404156</string>
     <string name="admob_interstitial">ca-app-pub-8995045147204986/6753137354</string>
+    
+    <!-- PArse Key's-->
+    <string name="application_id">xC3mlwqeZtJid9PAhe4PkUyxd30hxl7rD8rZXaVG</string>
+    <string name="client_key">QTYjawmY4jtpi0blgFvlBj0pFXIucoZzbrCHKrgu</string>
 </resources>

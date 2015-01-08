@@ -52,6 +52,6 @@ public class Fragment_Web extends Fragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webView.setWebViewClient(new Util_Web());
-        webView.loadUrl("http://doapps.me/");
+        webView.loadUrl("http://cuentoscortosweb.com/");
     }
 }

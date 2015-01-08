@@ -61,7 +61,7 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         channel_datasource = new Channel_Datasource(getActivity());
-        channel_datasource.getPlayList("WorldofWarcraftES");
+        channel_datasource.getPlayList("factosaur");
         channel_datasource.setInterface_playlists(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());

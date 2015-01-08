@@ -165,9 +165,15 @@ public class Fragment_Menu extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        if(((YouApp)getActivity()).pager.getCurrentItem() == 1){
+            if (mDrawerToggle.onOptionsItemSelected(item)) {
+                return true;
+            }
         }
+        /*
+        if(item.getItemId() == android.R.id.home){
+        }
+        */
         return super.onOptionsItemSelected(item);
     }
 

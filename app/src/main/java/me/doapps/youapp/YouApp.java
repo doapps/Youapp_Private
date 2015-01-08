@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,9 +34,11 @@ public class YouApp extends ActionBarActivity {
 
     private String[] TABS = {"WEB", "CANAL"};
 
+    private DrawerLayout mDrawerLayout;
     private Fragment_Menu mFragmentMenu;
     private CharSequence mTitle;
     private Video_DataSource video_dataSource;
+    public ViewPager pager;
 
     private API_DTO api_dto;
     private Channel_DTO channel_dto;
@@ -46,8 +49,8 @@ public class YouApp extends ActionBarActivity {
         setContentView(R.layout.youapp);
         mFragmentMenu = (Fragment_Menu) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mFragmentMenu.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
         /**
          *
          */
@@ -70,12 +73,15 @@ public class YouApp extends ActionBarActivity {
         });
 
         FragmentPagerAdapter adapter = new Tab_Adapter(getSupportFragmentManager());
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
+        if(pager.getCurrentItem() == 0){
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
     }
 
     /*
@@ -136,7 +142,6 @@ public class YouApp extends ActionBarActivity {
             if (position == 0) {
                 return Fragment_Web.newInstance();
             } else {
-
                 return Fragment_Video.newInstance();
             }
         }
@@ -150,5 +155,13 @@ public class YouApp extends ActionBarActivity {
         public int getCount() {
             return TABS.length;
         }
+    }
+
+    public DrawerLayout getmDrawerLayout() {
+        return mDrawerLayout;
+    }
+
+    public void setmDrawerLayout(DrawerLayout mDrawerLayout) {
+        this.mDrawerLayout = mDrawerLayout;
     }
 }

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.shamanland.fab.FloatingActionButton;
 import com.viewpagerindicator.TabPageIndicator;
+
+import java.util.ArrayList;
 
 import me.doapps.beans.API_DTO;
 import me.doapps.beans.Channel_DTO;
@@ -43,6 +46,26 @@ public class YouApp extends ActionBarActivity {
 
     private API_DTO api_dto;
     private PlayList_DTO playList_dto;
+    private int flag = 0;
+
+    private String url = "";
+    private ArrayList<PlayList_DTO> playList_dtos;
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 
     public void setPlayList_dto(PlayList_DTO playList_dto) {
         this.playList_dto = playList_dto;
@@ -52,10 +75,28 @@ public class YouApp extends ActionBarActivity {
         return playList_dto;
     }
 
+    public void setPlayList_dtos(ArrayList<PlayList_DTO> playList_dtos){
+        this.playList_dtos = playList_dtos;
+    }
+    public ArrayList<PlayList_DTO> getPlayList_dtos(){
+        return playList_dtos;
+    }
+
+    private InterfaceFirst interfaceFirst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.youapp);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras == null) {
+            setUrl(getResources().getString(R.string.url_web));
+        } else {
+            setUrl(extras.getString("data"));
+        }
+
+
         mFragmentMenu = (Fragment_Menu) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -88,9 +129,11 @@ public class YouApp extends ActionBarActivity {
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
-        if(pager.getCurrentItem() == 0){
+        if (pager.getCurrentItem() == 0) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
+
+
     }
 
     /*
@@ -130,6 +173,8 @@ public class YouApp extends ActionBarActivity {
         this.api_dto = api_dto;
     }
 
+
+
     /**
      * Adapter
      */
@@ -166,6 +211,8 @@ public class YouApp extends ActionBarActivity {
         this.mDrawerLayout = mDrawerLayout;
     }
 
+
+    /****/
     public interface OnSelectPlayList {
         void onClick();
     }
@@ -178,6 +225,14 @@ public class YouApp extends ActionBarActivity {
 
     public void setOnSelectPlayList(OnSelectPlayList onSelectPlayList) {
         this.onSelectPlayList = onSelectPlayList;
+    }
+
+
+    public interface InterfaceFirst{
+        void getFirst(PlayList_DTO playList_dto1);
+    }
+    public void setInterfaceFirst(InterfaceFirst interfaceFirst){
+        this.interfaceFirst = interfaceFirst;
     }
 
 }

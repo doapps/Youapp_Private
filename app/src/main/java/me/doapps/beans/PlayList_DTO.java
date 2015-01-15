@@ -15,6 +15,9 @@ public class PlayList_DTO extends API_DTO {
     private String description = "description";
     private String size = "size";
 
+
+    public PlayList_DTO(){}
+
     public String getId() {
         return parseString(id,getDataSource());
     }

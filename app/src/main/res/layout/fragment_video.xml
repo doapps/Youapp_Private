@@ -13,15 +13,25 @@
         android:background="@android:color/white"
         android:listSelector="@android:color/transparent"
         android:layout_height="wrap_content"
-        android:id="@+id/lista_video"
-         />
+        android:id="@+id/lista_video" />
 
-    <TextView android:id="@android:id/empty"
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20sp"
         android:text="SELECCIONE UNA\n'PLAYLIST'\nDEL MENU\nLATERAL" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center" />
 
 </FrameLayout>

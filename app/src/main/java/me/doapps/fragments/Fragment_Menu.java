@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +55,9 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
     private Adapter_Playlist adapter_playlist;
     private Channel_Datasource channel_datasource;
 
+
+
+
     public Fragment_Menu() {
     }
 
@@ -61,7 +65,7 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         channel_datasource = new Channel_Datasource(getActivity());
-        channel_datasource.getPlayList("factosaur");
+        channel_datasource.getPlayList("enchufetv");
         channel_datasource.setInterface_playlists(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -225,5 +229,19 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
     @Override
     public void onFinishLoad(Adapter_Playlist adapter_playlist, ArrayList<PlayList_DTO> playList_dtos) {
         mDrawerListView.setAdapter(adapter_playlist);
+        /*if(playList_dtos.size()>0){
+            ((YouApp)getActivity()).setPlayList_dto(playList_dtos.get(0));
+            ((YouApp)getActivity()).setFlag(1);
+        }*/
+        try {
+            ((YouApp)getActivity()).setPlayList_dto(playList_dtos.get(0));
+            Log.e("item", playList_dtos.get(0).getDescription());
+
+        }catch (NullPointerException e){
+            Log.e("Exception first", e.toString());
+        }
+
     }
+
+
 }

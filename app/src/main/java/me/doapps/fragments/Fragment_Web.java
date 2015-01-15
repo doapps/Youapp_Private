@@ -6,14 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
 import me.doapps.utils.Util_Web;
 import me.doapps.youapp.R;
+import me.doapps.youapp.YouApp;
 
 /**
  * Created by Gantz on 8/01/15.
@@ -49,9 +52,11 @@ public class Fragment_Web extends Fragment {
                 .build());
 
         webView = (WebView) getView().findViewById(R.id.web);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setBuiltInZoomControls(true);
-        webView.setWebViewClient(new Util_Web());
-        webView.loadUrl("http://cuentoscortosweb.com/");
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(((YouApp)getActivity()).getUrl());
     }
 }

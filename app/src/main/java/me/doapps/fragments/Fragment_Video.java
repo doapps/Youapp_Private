@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.Item_DTO;
+import me.doapps.beans.PlayList_DTO;
 import me.doapps.datasource.Video_DataSource;
 import me.doapps.youapp.Player;
 import me.doapps.youapp.R;
@@ -32,7 +34,7 @@ import me.doapps.youapp.YouApp;
 /**
  * Created by Gantz on 3/12/14.
  */
-public class Fragment_Video extends Fragment implements Video_DataSource.Interface_Video, AbsListView.OnScrollListener, YouApp.OnSelectPlayList {
+public class Fragment_Video extends Fragment implements Video_DataSource.Interface_Video, AbsListView.OnScrollListener, YouApp.OnSelectPlayList, YouApp.InterfaceFirst {
 
     public ListView lista_video;
     private Video_DataSource video_dataSource;
@@ -50,6 +52,7 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((YouApp) getActivity()).setOnSelectPlayList(this);
+
     }
 
     @Override
@@ -60,6 +63,7 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
 
         EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
         easyTracker.send(MapBuilder
@@ -74,7 +78,7 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
 
         lista_video = (ListView) getView().findViewById(R.id.lista_video);
         lista_video.setOnScrollListener(this);
-        lista_video.setEmptyView(getView().findViewById(android.R.id.empty));
+        lista_video.setEmptyView(getView().findViewById(R.id.empty));
         lista_video.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,13 +96,20 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
                         .build());
             }
         });
+
+
+        /*if (((YouApp) getActivity()).getFlag() > 0) {
+            ((YouApp) getActivity()).setPlayList_dto(((YouApp) getActivity()).getPlayList_dto());
+            ((YouApp) getActivity()).getOnSelectPlayList().onClick();
+        }*/
+
+
     }
 
     /**
      * Callback method to be invoked while the list view or grid view is being scrolled. If the
      * view is being scrolled, this method will be called before the next frame of the scroll is
      * rendered. In particular, it will be called before any calls to
-     * {@link Adapter#getView(int, android.view.View, android.view.ViewGroup)}.
      *
      * @param view        The view whose scroll state is being reported
      * @param scrollState The current scroll state. One of
@@ -166,5 +177,11 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
     @Override
     public void onClick() {
         updateView();
+    }
+
+
+    @Override
+    public void getFirst(PlayList_DTO playList_dto1) {
+        Log.e("test", playList_dto1.getDescription());
     }
 }

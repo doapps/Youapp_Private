@@ -10,6 +10,9 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
 
+    <!-- fragment web -->
+    <string name="url_web">http://cuentoscortosweb.com/</string>
+
 
     <!-- Admob Keys -->
     <string name="admob_banner">ca-app-pub-8995045147204986/5276404156</string>

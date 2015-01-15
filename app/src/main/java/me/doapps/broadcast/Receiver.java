@@ -10,7 +10,9 @@ import com.parse.ParsePushBroadcastReceiver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import me.doapps.session.SessionManager;
 import me.doapps.youapp.Push;
+import me.doapps.youapp.YouApp;
 
 /**
  * Created by mili on 08/01/2015.
@@ -28,7 +30,12 @@ public class Receiver extends ParsePushBroadcastReceiver {
             jObject = new JSONObject(message);
             String temp_data = jObject.getString("alert");
 
-            Intent i = new Intent(context, Push.class);
+
+            SessionManager session = new SessionManager(context);
+            session.setUrl(temp_data);
+
+
+            Intent i = new Intent(context, YouApp.class);
             i.putExtra("data", temp_data);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);

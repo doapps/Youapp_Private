@@ -96,6 +96,8 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
             }
         });
 
+        MINIMO = 1;
+        MAXIMO = 10;
 
         Video_DataSource video_dataSource = new Video_DataSource(getActivity());
         video_dataSource.getVideos(getString(R.string.first_playlist_id),MINIMO,MAXIMO);

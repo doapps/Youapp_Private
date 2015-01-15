@@ -96,11 +96,9 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
             }
         });
 
-        MINIMO = 1;
-        MAXIMO = 10;
-
+        ((YouApp)getActivity()).setLpid(getString(R.string.first_playlist_id));
         Video_DataSource video_dataSource = new Video_DataSource(getActivity());
-        video_dataSource.getVideos(getString(R.string.first_playlist_id),MINIMO,MAXIMO);
+        video_dataSource.getVideos(((YouApp)getActivity()).getLpid(),MINIMO,MAXIMO);
         video_dataSource.setInterface_video(this);
     }
 
@@ -134,7 +132,8 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
             if (!isLoading) {
                 isLoading = true;
                 MINIMO = MINIMO + 10;
-                video_dataSource.getVideos(((YouApp) getActivity()).getPlayList_dto().getId(), MINIMO, MAXIMO);
+                Video_DataSource video_dataSource = new Video_DataSource(getActivity());
+                video_dataSource.getVideos(((YouApp) getActivity()).getLpid(), MINIMO, MAXIMO);
                 video_dataSource.setInterface_video(this);
             }
         }
@@ -168,7 +167,7 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
         lista_video.setAdapter(null);
 
         video_dataSource = new Video_DataSource(getActivity());
-        video_dataSource.getVideos(((YouApp) getActivity()).getPlayList_dto().getId(), MINIMO, MAXIMO);
+        video_dataSource.getVideos(((YouApp) getActivity()).getLpid(), MINIMO, MAXIMO);
         video_dataSource.setInterface_video(this);
     }
 

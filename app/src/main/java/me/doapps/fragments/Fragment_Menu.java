@@ -101,6 +101,7 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PlayList_DTO channel_dto = (PlayList_DTO) parent.getAdapter().getItem(position);
                 ((YouApp) getActivity()).setPlayList_dto(channel_dto);
+                ((YouApp) getActivity()).setLpid(channel_dto.getId());
                 ((YouApp) getActivity()).getOnSelectPlayList().onClick();
                 mDrawerLayout.closeDrawers();
 

@@ -49,6 +49,16 @@ public class YouApp extends ActionBarActivity {
     private int flag = 0;
 
     private String url = "";
+    private String lpid;
+
+    public String getLpid() {
+        return lpid;
+    }
+
+    public void setLpid(String lpid) {
+        this.lpid = lpid;
+    }
+
     private ArrayList<PlayList_DTO> playList_dtos;
 
     public void setFlag(int flag) {

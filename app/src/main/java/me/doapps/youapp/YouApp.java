@@ -104,8 +104,6 @@ public class YouApp extends ActionBarActivity {
         /**
          *
          */
-        //setChannel_dto(((Channel_DTO) new Channel_Datasource().getAdapterChannel(this).getItem(0)));
-        //getSupportFragmentManager().beginTransaction().replace(R.id.container, Fragment_Video.newInstance(), Fragment_Video.class.getName()).commit();
 
         /**
          *
@@ -132,8 +130,6 @@ public class YouApp extends ActionBarActivity {
         if (pager.getCurrentItem() == 0) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
-
-
     }
 
     /*
@@ -172,8 +168,6 @@ public class YouApp extends ActionBarActivity {
     public void setApi_dto(API_DTO api_dto) {
         this.api_dto = api_dto;
     }
-
-
 
     /**
      * Adapter

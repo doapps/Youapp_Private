@@ -21,4 +21,8 @@
     <!-- PArse Key's-->
     <string name="application_id">xC3mlwqeZtJid9PAhe4PkUyxd30hxl7rD8rZXaVG</string>
     <string name="client_key">QTYjawmY4jtpi0blgFvlBj0pFXIucoZzbrCHKrgu</string>
+
+    <!-- Channel Keys -->
+    <string name="channel_id">enchufetv</string>
+    <string name="first_playlist_id">PLlGSQJ04OGkgcJaYviOU_oDohEWpmXq-m</string>
 </resources>

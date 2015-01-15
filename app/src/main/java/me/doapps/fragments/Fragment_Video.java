@@ -64,7 +64,6 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         EasyTracker easyTracker = EasyTracker.getInstance(getActivity());
         easyTracker.send(MapBuilder
                 .createEvent("PLAYLIST",
@@ -98,12 +97,9 @@ public class Fragment_Video extends Fragment implements Video_DataSource.Interfa
         });
 
 
-        /*if (((YouApp) getActivity()).getFlag() > 0) {
-            ((YouApp) getActivity()).setPlayList_dto(((YouApp) getActivity()).getPlayList_dto());
-            ((YouApp) getActivity()).getOnSelectPlayList().onClick();
-        }*/
-
-
+        Video_DataSource video_dataSource = new Video_DataSource(getActivity());
+        video_dataSource.getVideos(getString(R.string.first_playlist_id),MINIMO,MAXIMO);
+        video_dataSource.setInterface_video(this);
     }
 
     /**

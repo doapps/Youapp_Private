@@ -1,8 +1,6 @@
 package me.doapps.fragments;
 
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBarActivity;
-import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -14,15 +12,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -30,13 +24,11 @@ import com.google.analytics.tracking.android.MapBuilder;
 import java.util.ArrayList;
 
 import me.doapps.adapters.Adapter_Playlist;
-import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.Channel_DTO;
 import me.doapps.beans.PlayList_DTO;
 import me.doapps.datasource.Channel_Datasource;
-import me.doapps.datasource.Video_DataSource;
-import me.doapps.youapp.R;
-import me.doapps.youapp.YouApp;
+import me.doapps.youapps.R;
+import me.doapps.youapps.YouApp;
 
 public class Fragment_Menu extends Fragment implements Channel_Datasource.Interface_Playlists {
 
@@ -54,8 +46,6 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
 
     private Adapter_Playlist adapter_playlist;
     private Channel_Datasource channel_datasource;
-
-
 
 
     public Fragment_Menu() {
@@ -96,6 +86,7 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
 
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_menu, container, false);
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,7 +100,7 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
                 easyTracker.send(MapBuilder
                         .createEvent("MENU",
                                 "SELECCION",
-                                "PLAYLIST SELECCIONADA : "+channel_dto.getTitle(),
+                                "PLAYLIST SELECCIONADA : " + channel_dto.getTitle(),
                                 null)
                         .build());
             }
@@ -200,11 +191,12 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (((YouApp) getActivity()).pager.getCurrentItem() == 1) {
+        if (((YouApp) getActivity()).pager.getCurrentItem() == 1 || ((YouApp) getActivity()).pager.getCurrentItem() == 0 ) {
             if (mDrawerToggle.onOptionsItemSelected(item)) {
                 return true;
             }
         }
+
         /*
         if(item.getItemId() == android.R.id.home){
         }
@@ -235,10 +227,10 @@ public class Fragment_Menu extends Fragment implements Channel_Datasource.Interf
             ((YouApp)getActivity()).setFlag(1);
         }*/
         try {
-            ((YouApp)getActivity()).setPlayList_dto(playList_dtos.get(0));
+            ((YouApp) getActivity()).setPlayList_dto(playList_dtos.get(0));
             Log.e("item", playList_dtos.get(0).getDescription());
 
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e("Exception first", e.toString());
         }
 

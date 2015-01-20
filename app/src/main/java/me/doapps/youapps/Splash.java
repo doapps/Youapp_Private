@@ -1,4 +1,4 @@
-package me.doapps.youapp;
+package me.doapps.youapps;
  
 import android.content.Intent;
 import android.os.Bundle;

@@ -8,8 +8,8 @@ import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.PushService;
 
-import me.doapps.youapp.Push;
-import me.doapps.youapp.R;
+import me.doapps.youapps.Push;
+import me.doapps.youapps.R;
 
 /**
  * Created by mili on 08/01/2015.

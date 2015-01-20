@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.doapps.youapp">
+    package="me.doapps.youapps">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,7 +22,7 @@
     -->
     <permission
         android:protectionLevel="signature"
-        android:name="me.doapps.youapp.permission.C2D_MESSAGE" />
+        android:name="me.doapps.youapps.permission.C2D_MESSAGE" />
     <uses-permission android:name="me.doapps.youapp.permission.C2D_MESSAGE" />
 
     <application
@@ -36,7 +36,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".Splash"
+            android:name="me.doapps.youapps.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -46,14 +46,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".YouApp"
+            android:name="me.doapps.youapps.YouApp"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".Push"
+        <activity android:name="me.doapps.youapps.Push"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".Player"
+            android:name="me.doapps.youapps.Player"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

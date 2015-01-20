@@ -14,10 +14,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import me.doapps.beans.PlayList_DTO;
-import me.doapps.beans.PlayList_DTO;
 import me.doapps.utils.RoundedTransformation;
 import me.doapps.utils.Util_Fonts;
-import me.doapps.youapp.R;
+import me.doapps.youapps.R;
 
 /**
  * Created by Gantz on 26/05/14.

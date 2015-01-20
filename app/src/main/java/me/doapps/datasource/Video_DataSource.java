@@ -13,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.API_DTO;
 import me.doapps.beans.Item_DTO;
-import me.doapps.youapp.YouApp;
 
 /**
  * Created by Gantz on 3/12/14.

@@ -17,15 +17,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import me.doapps.adapters.Adapter_Channel;
 import me.doapps.adapters.Adapter_Playlist;
-import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.API_DTO;
 import me.doapps.beans.Channel_DTO;
-import me.doapps.beans.Item_DTO;
 import me.doapps.beans.PlayList_DTO;
-import me.doapps.fragments.Fragment_Menu;
-import me.doapps.youapp.R;
 
 /**
  * Created by Gantz on 3/12/14.

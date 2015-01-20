@@ -12,14 +12,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -27,9 +22,9 @@ import me.doapps.adapters.Adapter_Video;
 import me.doapps.beans.Item_DTO;
 import me.doapps.beans.PlayList_DTO;
 import me.doapps.datasource.Video_DataSource;
-import me.doapps.youapp.Player;
-import me.doapps.youapp.R;
-import me.doapps.youapp.YouApp;
+import me.doapps.youapps.Player;
+import me.doapps.youapps.R;
+import me.doapps.youapps.YouApp;
 
 /**
  * Created by Gantz on 3/12/14.

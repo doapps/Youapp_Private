@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import me.doapps.beans.Item_DTO;
 import me.doapps.utils.Util_Fonts;
-import me.doapps.youapp.R;
+import me.doapps.youapps.R;
 
 /**
  * Created by Gantz on 26/05/14.

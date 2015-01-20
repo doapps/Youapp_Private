@@ -1,7 +1,6 @@
-package me.doapps.youapp;
+package me.doapps.youapps;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,25 +8,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.shamanland.fab.FloatingActionButton;
 import com.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
 
 import me.doapps.beans.API_DTO;
-import me.doapps.beans.Channel_DTO;
 import me.doapps.beans.PlayList_DTO;
-import me.doapps.datasource.Channel_Datasource;
 import me.doapps.datasource.Video_DataSource;
 import me.doapps.fragments.Fragment_Menu;
 import me.doapps.fragments.Fragment_Video;
@@ -125,7 +115,9 @@ public class YouApp extends ActionBarActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/search?q=cristian%20alex%20palomino%20rivera");
+                String sAux = "\nTe invito a descargar esta aplicación:\n\n";
+                sAux = sAux + "https://play.google.com/store/apps/details?id=me.doapps.pondetuparte&hl=es\n\n";
+                intent.putExtra(Intent.EXTRA_TEXT, sAux);
                 startActivity(Intent.createChooser(intent, "Compartir"));
             }
         });
@@ -137,9 +129,9 @@ public class YouApp extends ActionBarActivity {
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
 
-        if (pager.getCurrentItem() == 0) {
+        /*if (pager.getCurrentItem() == 0) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
+        }*/
     }
 
     /*

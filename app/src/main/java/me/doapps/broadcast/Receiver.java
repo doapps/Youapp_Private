@@ -11,8 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.doapps.session.SessionManager;
-import me.doapps.youapp.Push;
-import me.doapps.youapp.YouApp;
+import me.doapps.youapps.YouApp;
 
 /**
  * Created by mili on 08/01/2015.

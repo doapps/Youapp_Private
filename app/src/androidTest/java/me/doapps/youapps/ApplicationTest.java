@@ -1,4 +1,4 @@
-package me.doapps.youapp;
+package me.doapps.youapps;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -14,9 +14,8 @@ import android.webkit.WebViewClient;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
-import me.doapps.utils.Util_Web;
-import me.doapps.youapp.R;
-import me.doapps.youapp.YouApp;
+import me.doapps.youapps.R;
+import me.doapps.youapps.YouApp;
 
 /**
  * Created by Gantz on 8/01/15.
